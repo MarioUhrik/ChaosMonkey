@@ -1,5 +1,6 @@
 import time
 import os
+import random
 import logging
 from kubernetes import client, config
 
@@ -10,7 +11,7 @@ def chaosMonkey(settings):
         if len(pods.items) == 0:
             logging.warning("Found zero pods in namespace" + settings["targetNamespace"])
         else:
-            podToDelete = pods.items[randrange(len(pods.items))].metadata.name
+            podToDelete = pods.items[random.randrange(len(pods.items))].metadata.name
             logging.debug("Deleting pod " + podToDelete)
             settings["k8sApi"].delete_namespaced_pod(settings["targetNamespace"], podToDelete)
             logging.info("Deleted pod " + podToDelete)
