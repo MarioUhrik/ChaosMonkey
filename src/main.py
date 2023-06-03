@@ -5,9 +5,8 @@ from kubernetes import client, config
 
 def chaosMonkey(settings):
     while True:
-        logging.debug("Listing pods in namespace " + settings["targetNamespace"])
+        logging.info("Listing pods in namespace " + settings["targetNamespace"])
         pods = settings["k8sApi"].list_namespaced_pod(settings["targetNamespace"])
-        logging.debug("Found pods: " + pods)
         if len(pods.items) == 0:
             logging.warning("Found zero pods in namespace" + settings["targetNamespace"])
         else:
