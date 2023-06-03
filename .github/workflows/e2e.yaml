@@ -27,8 +27,8 @@ jobs:
           kubectl apply -f manifests/chaosMonkey.yaml
           kubectl apply -f manifests/dummyTargetNamespace.yaml
 
-      - name: Sleep for 30 seconds
-        run: sleep 30s
+      - name: Sleep for 20 seconds
+        run: sleep 20s
         shell: bash
 
       - name: Get the number of seconds that the youngest pod had been alive

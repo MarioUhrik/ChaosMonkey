@@ -2,7 +2,7 @@
 
 ChaosMonkey runs as a pod in your Kubernetes cluster, and deletes a random pod in namespace **targetNamespace** every **interval** seconds.
 
-### Test running ChaosMonkey
+### How to run ChaosMonkey on your machine
 ```bash
 minikube start # if you don't have your own cluster prepared, you can use minikube
 
@@ -21,3 +21,7 @@ minikube delete # if you've used `minikube start` up above
 ```
 
 In order to run ChaosMonkey for non-testing purposes, you can edit the environment variables in `manifests/chaosMonkey.yaml` to your satisfaction, and then deploy it without the `dummyTargetNamespace.yaml`.
+
+### Testing ChaosMonkey
+
+ChaosMonkey has an E2E testing framework using GitHub Actions. See `.github/workflows/e2e.yaml`.
