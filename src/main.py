@@ -33,7 +33,7 @@ def init():
     if settings["targetNamespace"] is None:
         raise Exception("Init failure: CM__TARGET_NAMESPACE env variable could not be loaded")
 
-    config.load_kube_config()
+    config.load_incluster_config()
     settings["k8sApi"] = client.CoreV1Api()
 
     logging.info("Initialized!")
