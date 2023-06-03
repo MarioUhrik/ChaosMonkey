@@ -28,7 +28,12 @@ spec:
     spec:
       containers:
       - name: dummy-chaos-monkey-target
-        image: nginx
+        image: alpine
+        command:
+          - /bin/sh
+          - -c
+          - |
+            sleep infinity
         imagePullPolicy: Always
         securityContext:
           runAsUser: 2000
