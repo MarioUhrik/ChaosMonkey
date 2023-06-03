@@ -16,8 +16,8 @@ def chaosMonkey(settings):
             settings["k8sApi"].delete_namespaced_pod(podToDelete, settings["targetNamespace"])
             logging.info("Deleted pod " + podToDelete)
 
-        logging.debug("Sleeping for " + settings["interval"] + " seconds")
-        time.sleep(settings["interval"])
+        logging.info("Sleeping for " + settings["interval"] + " seconds")
+        time.sleep(int(settings["interval"]))
 
 def init():
     logLevel = os.environ.get('CM__LOGLEVEL', 'INFO').upper()
