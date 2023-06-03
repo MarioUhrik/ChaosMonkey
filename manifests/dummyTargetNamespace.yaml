@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: chaos
+  labels:
+    app: chaos-monkey
+    purpose: testing
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dummy-chaos-monkey-target
+  namespace: chaos
+  labels:
+    app: chaos-monkey
+    purpose: testing
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: chaos-monkey
+      purpose: testing
+  template:
+    metadata:
+      labels:
+        app: chaos-monkey
+        purpose: testing
+    spec:
+      securityContext:
+        runAsUser: 2000
+        runAsGroup: 3000
+        fsGroup: 2000
+        privileged: false
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop:
+            - all
+      containers:
+      - name: dummy-chaos-monkey-target
+        image: nginx
+        imagePullPolicy: Always
