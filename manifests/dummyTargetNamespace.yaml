@@ -26,6 +26,7 @@ spec:
         app: chaos-monkey
         purpose: testing
     spec:
+      terminationGracePeriodSeconds: 0
       containers:
       - name: dummy-chaos-monkey-target
         image: alpine
