@@ -21,6 +21,7 @@ spec:
       labels:
         app: chaos-monkey
     spec:
+      serviceAccountName: chaos-monkey
       containers:
       - name: chaos-monkey
         image: ghcr.io/mariouhrik/chaos-monkey:latest
