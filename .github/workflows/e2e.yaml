@@ -27,15 +27,17 @@ jobs:
           kubectl apply -f manifests/chaosMonkey.yaml
           kubectl apply -f manifests/dummyTargetNamespace.yaml
 
-      - name: Sleep for 20 seconds
-        run: sleep 20s
+      - name: Sleep for 30 seconds
+        run: sleep 30s
         shell: bash
 
       - name: Get the number of seconds that the youngest pod had been alive
         run: |
           SECONDS=$(kubectl -n chaos get pods --sort-by=.metadata.creationTimestamp | tac | head -1 | grep -oE " [0-9]?[0-9]s" | cut -c 2- | rev | cut -c 2- | rev)
+          echo "The youngest pod is $SECONDS seconds old"
           if [ "$SECONDS" -gt 10 ]
           then
             echo "Test failure: The youngest pod is over 10 seconds old"
             return 1
           fi
+          echo "Test success: The youngest pod is not over 10 seconds old"
