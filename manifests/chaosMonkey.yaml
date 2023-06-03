@@ -37,9 +37,9 @@ spec:
             drop:
               - all
         env:
-        - name: CM__INTERVAL
+        - name: CM__INTERVAL # interval between pod deletions in seconds
           value: "10"
-        - name: CM__TARGET_NAMESPACE
+        - name: CM__TARGET_NAMESPACE # name of the target namespace where to delete pods
           value: "chaos"
         - name: CM__LOGLEVEL
           value: "INFO" # OR "DEBUG", "WARNING", "ERROR", "CRITICAL"
