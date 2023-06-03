@@ -42,7 +42,7 @@ spec:
         - name: CM__TARGET_NAMESPACE
           value: "chaos"
         - name: CM__LOGLEVEL
-          value: "DEBUG"
+          value: "INFO" # OR "DEBUG", "WARNING", "ERROR", "CRITICAL"
         resources:
           requests:
             memory: 100Mi
