@@ -13,7 +13,7 @@ def chaosMonkey(settings):
         else:
             podToDelete = pods.items[random.randrange(len(pods.items))].metadata.name
             logging.debug("Deleting pod " + podToDelete)
-            settings["k8sApi"].delete_namespaced_pod(settings["targetNamespace"], podToDelete)
+            settings["k8sApi"].delete_namespaced_pod(podToDelete, settings["targetNamespace"])
             logging.info("Deleted pod " + podToDelete)
 
         logging.debug("Sleeping for " + settings["interval"] + " seconds")
