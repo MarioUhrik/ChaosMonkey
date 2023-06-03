@@ -21,20 +21,20 @@ spec:
       labels:
         app: chaos-monkey
     spec:
-      securityContext:
-        runAsUser: 2000
-        runAsGroup: 3000
-        fsGroup: 2000
-        privileged: false
-        allowPrivilegeEscalation: false
-        readOnlyRootFilesystem: true
-        capabilities:
-          drop:
-            - all
       containers:
       - name: chaos-monkey
         image: ghcr.io/mariouhrik/chaos-monkey:latest
         imagePullPolicy: Always
+        securityContext:
+          runAsUser: 2000
+          runAsGroup: 3000
+          runAsNonRoot: true
+          privileged: false
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+              - all
         env:
         - name: CM__INTERVAL
           value: "10"

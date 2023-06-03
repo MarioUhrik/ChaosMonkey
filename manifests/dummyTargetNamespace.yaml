@@ -26,17 +26,17 @@ spec:
         app: chaos-monkey
         purpose: testing
     spec:
-      securityContext:
-        runAsUser: 2000
-        runAsGroup: 3000
-        fsGroup: 2000
-        privileged: false
-        allowPrivilegeEscalation: false
-        readOnlyRootFilesystem: true
-        capabilities:
-          drop:
-            - all
       containers:
       - name: dummy-chaos-monkey-target
         image: nginx
         imagePullPolicy: Always
+        securityContext:
+          runAsUser: 2000
+          runAsGroup: 3000
+          runAsNonRoot: true
+          privileged: false
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+              - all
