@@ -1,0 +1,41 @@
+name: E2E test
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 0 1 * *'
+  pull_request:
+    branches: [main]
+
+jobs:
+  simple-test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Start minikube
+        uses: medyagh/setup-minikube@v0.0.13
+      
+      - name: Deploy Chaos Monkey
+        run: |
+          kubectl apply -f manifests/chaosMonkey.yaml
+          kubectl apply -f manifests/dummyTargetNamespace.yaml
+
+      - name: Sleep for 20 seconds
+        run: sleep 20s
+        shell: bash
+
+      - name: Get the number of seconds that the youngest pod had been alive
+        run: |
+          SECONDS=$(kubectl -n chaos get pods --sort-by=.metadata.creationTimestamp | tac | head -1 | grep -oE " [0-9]?[0-9]s" | cut -c 2- | rev | cut -c 2- | rev)
+          if [ "$SECONDS" -gt 10 ]
+          then
+            echo "Test failure: The youngest pod is over 10 seconds old"
+            return 1
+          fi
