@@ -6,8 +6,8 @@ ChaosMonkey runs as a pod in your Kubernetes cluster, and deletes a random pod i
 ```bash
 minikube start # if you don't have your own cluster prepared, you can use minikube
 
-kubectl apply -f manifests/chaosMonkey.yaml # deploy ChaosMonkey
-kubectl apply -f manifests/dummyTargetNamespace.yaml # dummy namespace/pods in namespace `chaos`
+kubectl apply -f https://raw.githubusercontent.com/MarioUhrik/ChaosMonkey/main/manifests/chaosMonkey.yaml # deploy ChaosMonkey
+kubectl apply -f https://raw.githubusercontent.com/MarioUhrik/ChaosMonkey/main/manifests/dummyTargetNamespace.yaml # dummy namespace/pods in namespace `chaos`
 
 kubectl -n chaos-monkey get pod # ensure that the ChaosMonkey deployment is ready
 kubectl -n chaos get pod # ensure that the dummy pods are ready
